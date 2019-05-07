@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" height="600" width="600" style="border:1px solid #ccc"></canvas>
+    <img src="image17.jpg" alt="" style="width:1000px;height:600px;display: none">
+</body>
+<script>
+var a=document.getElementById('canvas');
+var b=a.getContext('2d');
+var img=document.getElementsByTagName('img')[0];
+function clock(){
+    b.beginPath();
+    b.arc(300,300,250,0,Math.PI*2,false)
+    b.closePath();
+    b.stroke();
+    b.clip();
+    b.drawImage(img,50,0)
+    //时针线
+   
+    for(var i=0;i<12;i++){
+        console.log('l')
+        b.save();
+        b.lineWidth=7;
+        b.strokeStyle='yellow';
+        b.translate(300,300);
+        b.rotate(Math.PI/180*30*i);
+        b.beginPath();
+        b.moveTo(0,-220);
+        b.lineTo(0,-250);
+        b.stroke();
+        b.restore();
+        b.closePath();
+        b.restore();
+    }
+  
+    for(var n=0;n<60;n++){
+        console.log('l')
+        b.save();
+        b.lineWidth=5;
+        b.strokeStyle='yellow';
+        b.translate(300,300);
+        b.rotate(Math.PI/180*6*n);
+        b.beginPath();
+        b.moveTo(0,-240);
+        b.lineTo(0,-250);
+        b.stroke();
+        b.restore();
+        b.closePath();
+        b.restore();
+    }
+    
+    var date=new Date();
+    var s=date.getSeconds();
+    var m=date.getMinutes();
+    var h=date.getHours();
+    h>12?h-12:h;
+    h+=(m/60);
+    b.clearRect(0,0,b.Width,b.height);
+    b.save();
+        b.lineWidth=7;
+        b.translate(300,300);
+        b.strokeStyle='green';
+        b.rotate(h*30*Math.PI/180);
+        b.beginPath();
+        b.moveTo(0,-140);
+        b.lineTo(0,10);
+        b.stroke();
+        b.closePath();
+        b.restore();
+   
+        b.save();
+        b.lineWidth=5;
+        b.strokeStyle='blue';
+        b.translate(300,300);
+        b.rotate(m*6*Math.PI/180);
+        b.beginPath();
+        b.moveTo(0,-170);
+        b.lineTo(0,10);
+        b.stroke();
+        b.closePath();
+        b.restore();
+
+
+        b.save();
+        b.lineWidth=3;
+        b.strokeStyle='red';
+        b.translate(300,300);
+        b.rotate(s*6*Math.PI/180);
+        b.beginPath();
+        b.moveTo(0,-200);
+        b.lineTo(0,10);
+        b.stroke();
+        b.closePath();
+        b.restore();
+    
+    
+}
+clock();
+    setInterval(clock,1000)
+
+img.onload=function(){
+    clock();
+}
+
+</script>
+</html>
